@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Escape Game - Semaine des Langues</title>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Oswald:wght@400;700&family=Courier+Prime:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== LANDING PAGE ===== -->
+<div id="landing">
+    <div class="crime-tape crime-tape-top">
+        <span>⚠ DO NOT CROSS ⚠ CRIME SCENE ⚠ DO NOT CROSS ⚠ CRIME SCENE ⚠ DO NOT CROSS ⚠ CRIME SCENE ⚠ DO NOT CROSS ⚠ CRIME SCENE ⚠ DO NOT CROSS ⚠ CRIME SCENE ⚠</span>
+    </div>
+
+    <div class="landing-content">
+        <div class="badge-icon">
+            <svg viewBox="0 0 100 100" fill="none">
+                <polygon points="50,5 61,35 95,35 67,55 78,85 50,67 22,85 33,55 5,35 39,35" fill="none" stroke="#c9a227" stroke-width="2"/>
+                <circle cx="50" cy="50" r="18" fill="none" stroke="#c9a227" stroke-width="1.5"/>
+                <text x="50" y="55" text-anchor="middle" fill="#c9a227" font-family="Bebas Neue" font-size="14">DETECTIVE</text>
+            </svg>
+        </div>
+        <h1 class="landing-title">ESCAPE GAME</h1>
+        <p class="landing-subtitle">Semaine des Langues</p>
+        <p class="landing-tagline">A suspect is loose in the school — Can you find them?</p>
+        <button class="start-btn" onclick="startGame()">BEGIN INVESTIGATION</button>
+    </div>
+
+    <div class="crime-tape crime-tape-bottom">
+        <span>⚠ INVESTIGATION IN PROGRESS ⚠ AUTHORIZED PERSONNEL ONLY ⚠ INVESTIGATION IN PROGRESS ⚠ AUTHORIZED PERSONNEL ONLY ⚠ INVESTIGATION IN PROGRESS ⚠</span>
+    </div>
+</div>
+
+<!-- ===== ENIGME 1 ===== -->
+<div id="enigme1" class="screen">
+    <div class="game-header">
+        <div>
+            <div class="step-indicator">CLUE <span>01</span> / 06</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        </div>
+    </div>
+
+    <div class="enigme-card">
+        <div class="enigme-number">First Lead</div>
+        <h2 class="enigme-title">The Wanted Poster</h2>
+
+        <div class="location-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            GO TO THE HIGH SCHOOL'S ENTRANCE AND FIND THIS POSTER
+        </div>
+
+        <div class="wanted-poster">
+            <h3>WANTED</h3>
+            <div class="wanted-silhouette">🕵️</div>
+            <p style="font-family: 'Special Elite', cursive; font-size: 1rem;">SUSPECT AT LARGE</p>
+            <p class="reward">PAY ATTENTION TO FIND THE CODE</p>
+        </div>
+
+        <p class="enigme-description">
+            A wanted poster has been spotted at the school entrance. Examine it carefully — the code is hidden in plain sight. Find it and enter it below to proceed to the next clue.
+        </p>
+
+        <div class="code-section">
+            <div class="code-label">ENTER THE CODE</div>
+            <div class="code-input-group">
+                <input type="text" class="code-char" maxlength="1" data-index="0">
+                <input type="text" class="code-char" maxlength="1" data-index="1">
+                <input type="text" class="code-char" maxlength="1" data-index="2">
+                <input type="text" class="code-char" maxlength="1" data-index="3">
+                <input type="text" class="code-char" maxlength="1" data-index="4">
+            </div>
+            <button class="submit-code" onclick="checkCode(1, 'S0912', 'enigme2')">UNLOCK</button>
+            <div class="code-error" id="error1"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== ENIGME 2 ===== -->
+<div id="enigme2" class="screen">
+    <div class="game-header">
+        <div>
+            <div class="step-indicator">CLUE <span>02</span> / 06</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 16.6%"></div></div>
+        </div>
+    </div>
+
+    <div class="enigme-card">
+        <div class="enigme-number">Second Lead</div>
+        <h2 class="enigme-title">The Riddle</h2>
+
+        <p class="enigme-description">
+            Solve this riddle to unlock the next clue. Think carefully — the answer is a single English word.
+        </p>
+
+        <div class="charade-box">
+            <div class="charade-line"><strong>My first</strong> is a conflict between nations</div>
+            <div class="charade-line"><strong>My second</strong> is a space inside a building</div>
+            <div class="charade-line"><strong>My whole</strong> is where strategic decisions are made</div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-number">PART 1</div>
+            <div class="q-text">My first:</div>
+            <input type="text" id="charade1" placeholder="Enter answer..." autocomplete="off">
+            <div class="feedback" id="fb-charade1"></div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-number">PART 2</div>
+            <div class="q-text">My second:</div>
+            <input type="text" id="charade2" placeholder="Enter answer..." autocomplete="off">
+            <div class="feedback" id="fb-charade2"></div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-number">COMPLETE WORD</div>
+            <div class="q-text">My whole:</div>
+            <input type="text" id="charade3" placeholder="Enter the full word..." autocomplete="off">
+            <div class="feedback" id="fb-charade3"></div>
+        </div>
+
+        <button class="check-btn" onclick="checkCharade()" style="margin-bottom: 1rem;">CHECK ANSWERS</button>
+
+        <div class="code-section">
+            <div class="code-label">ENTER THE CODE LETTER</div>
+            <div class="code-input-group">
+                <input type="text" class="code-char" maxlength="1" data-index="0">
+            </div>
+            <button class="submit-code" onclick="checkCode(2, 'R', 'enigme3')">UNLOCK</button>
+            <div class="code-error" id="error2"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== ENIGME 3 ===== -->
+<div id="enigme3" class="screen">
+    <div class="game-header">
+        <div>
+            <div class="step-indicator">CLUE <span>03</span> / 06</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 33.2%"></div></div>
+        </div>
+    </div>
+
+    <div class="enigme-card">
+        <div class="enigme-number">Third Lead</div>
+        <h2 class="enigme-title">Cafeteria Clues</h2>
+
+        <div class="location-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            GO TO THE CAFETERIA TO FIND YOUR NEXT CLUE
+        </div>
+
+        <p class="enigme-description">
+            Answer each riddle below. Take the first number of each answer to build the code. Then tell Nico to get the final letter.
+        </p>
+
+        <p style="color: var(--accent); font-family: 'Oswald', sans-serif; letter-spacing: 2px; margin-bottom: 1.5rem; font-size: 0.9rem;">
+            TAKE THE FIRST NUMBER OF EACH RESULT FOUND TO FIND THE CODE
+        </p>
+
+        <div class="question-block">
+            <div class="q-number">QUESTION 1</div>
+            <div class="q-text">I'm fresh with a little elongated loaf of bread. Inside you can find breaded chicken, cheese, tomato, salad and sauce. We often eat me for picnics. My name evokes a king. Who am I?</div>
+            <input type="text" id="q3-1" placeholder="Your answer..." autocomplete="off">
+            <button class="check-btn" onclick="checkQ3(1)">CHECK</button>
+            <div class="feedback" id="fb-q3-1"></div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-number">QUESTION 2</div>
+            <div class="q-text">I'm a little crispy on the outside and soft on the inside. I'm your favorite and the most popular. Who am I?</div>
+            <input type="text" id="q3-2" placeholder="Your answer..." autocomplete="off">
+            <button class="check-btn" onclick="checkQ3(2)">CHECK</button>
+            <div class="feedback" id="fb-q3-2"></div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-number">QUESTION 3</div>
+            <div class="q-text">I'm on the left as you enter. People watch me on TV. I'm a sport, but here you play me with your hands. How many of us are there?</div>
+            <input type="text" id="q3-3" placeholder="Your answer (number)..." autocomplete="off">
+            <button class="check-btn" onclick="checkQ3(3)">CHECK</button>
+            <div class="feedback" id="fb-q3-3"></div>
+        </div>
+
+        <div class="question-block">
+            <div class="q-number">QUESTION 4</div>
+            <div class="q-text">I'm a TikTok reference from 2024, I'm salty, I'm the little brother of the big one. Who am I?</div>
+            <input type="text" id="q3-4" placeholder="Your answer..." autocomplete="off">
+            <button class="check-btn" onclick="checkQ3(4)">CHECK</button>
+            <div class="feedback" id="fb-q3-4"></div>
+        </div>
+
+        <p class="enigme-description" style="margin-top: 1.5rem; font-style: italic;">
+            Tell Nico the numbers to get the final letter of the code.
+        </p>
+
+        <div class="code-section">
+            <div class="code-label">ENTER THE CODE</div>
+            <div class="code-input-group">
+                <input type="text" class="code-char" maxlength="1" data-index="0">
+                <input type="text" class="code-char" maxlength="1" data-index="1">
+                <input type="text" class="code-char" maxlength="1" data-index="2">
+                <input type="text" class="code-char" maxlength="1" data-index="3">
+                <input type="text" class="code-char" maxlength="1" data-index="4">
+            </div>
+            <button class="submit-code" onclick="checkCode(3, '4243I', 'enigme4')">UNLOCK</button>
+            <div class="code-error" id="error3"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== ENIGME 4 ===== -->
+<div id="enigme4" class="screen">
+    <div class="game-header">
+        <div>
+            <div class="step-indicator">CLUE <span>04</span> / 06</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div>
+        </div>
+    </div>
+
+    <div class="enigme-card">
+        <div class="enigme-number">Fourth Lead</div>
+        <h2 class="enigme-title">The Tudors</h2>
+
+        <p class="enigme-description">
+            Complete the quiz about the Tudor dynasty (1485–1603). Once you've finished, enter the code to move on.
+        </p>
+
+        <a href="https://learningapps.org/view47043845" target="_blank" class="tudor-link">
+            📜 Take the Tudor Quiz →
+        </a>
+
+        <div class="enigme-instruction">
+            Complete the quiz, then enter the code to proceed to the next enigma.
+        </div>
+
+        <div class="code-section">
+            <div class="code-label">ENTER THE CODE</div>
+            <div class="code-input-group">
+                <input type="text" class="code-char" maxlength="1" data-index="0">
+                <input type="text" class="code-char" maxlength="1" data-index="1">
+                <input type="text" class="code-char" maxlength="1" data-index="2">
+                <input type="text" class="code-char" maxlength="1" data-index="3">
+            </div>
+            <button class="submit-code" onclick="checkCode(4, '003C', 'enigme5')">UNLOCK</button>
+            <div class="code-error" id="error4"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== ENIGME 5 ===== -->
+<div id="enigme5" class="screen">
+    <div class="game-header">
+        <div>
+            <div class="step-indicator">CLUE <span>05</span> / 06</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 66.6%"></div></div>
+        </div>
+    </div>
+
+    <div class="enigme-card">
+        <div class="enigme-number">Fifth Lead</div>
+        <h2 class="enigme-title">Scan the Memes</h2>
+
+        <p class="enigme-description">
+            You'll find several QR codes around the school. Most of them are memes — distractions! You must scan ALL of them to find the real clue. The solution is hidden in the last one you scan.
+        </p>
+
+        <div class="compass-hint">🧭</div>
+
+        <p class="enigme-description" style="text-align: center; font-style: italic;">
+            Use the compass to navigate. Scan every QR code you find!
+        </p>
+
+        <div class="meme-grid">
+            <div class="meme-qr" onclick="scanMeme(this, 1)"></div>
+            <div class="meme-qr" onclick="scanMeme(this, 2)"></div>
+            <div class="meme-qr" onclick="scanMeme(this, 3)"></div>
+            <div class="meme-qr" onclick="scanMeme(this, 4)"></div>
+            <div class="meme-qr" onclick="scanMeme(this, 5)"></div>
+            <div class="meme-qr" onclick="scanMeme(this, 6)"></div>
+        </div>
+
+        <p class="enigme-description" id="meme-status" style="text-align: center;">
+            QR Codes scanned: <strong>0 / 6</strong>
+        </p>
+
+        <div class="code-section">
+            <div class="code-label">ENTER THE CODE</div>
+            <div class="code-input-group">
+                <input type="text" class="code-char" maxlength="1" data-index="0">
+                <input type="text" class="code-char" maxlength="1" data-index="1">
+                <input type="text" class="code-char" maxlength="1" data-index="2">
+                <input type="text" class="code-char" maxlength="1" data-index="3">
+            </div>
+            <button class="submit-code" onclick="checkCode(5, '514H', 'enigme6')">UNLOCK</button>
+            <div class="code-error" id="error5"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== ENIGME 6 ===== -->
+<div id="enigme6" class="screen">
+    <div class="game-header">
+        <div>
+            <div class="step-indicator">CLUE <span>06</span> / 06 — FINAL</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 83.3%"></div></div>
+        </div>
+    </div>
+
+    <div class="enigme-card" style="border-color: var(--danger);">
+        <div class="stamp">FINAL</div>
+        <div class="enigme-number">The Final Lead</div>
+        <h2 class="enigme-title">Arrest the Suspect</h2>
+
+        <!-- PART 1 -->
+        <div class="part-indicator">PART 1 — THE SECRETARY</div>
+
+        <div class="location-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            GO TO THE HEADMASTER'S SECRETARY TO GET YOUR NEXT CLUE
+        </div>
+
+        <p class="enigme-description">
+            The secretary will give you a poster and a map of the school. Use the map and the poster to find all the locations. Visit each one and collect the evidence!
+        </p>
+
+        <div class="section-divider"></div>
+
+        <!-- PART 2 -->
+        <div class="part-indicator">PART 2 — THE HANDCUFFS</div>
+
+        <div class="location-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            GO TO THE HEADMASTER'S SECRETARY AND GIVE HER THE CODE (4 NUMBERS AND A LETTER) TO GET THE HANDCUFFS
+        </div>
+
+        <div class="handcuff-visual">⛓️</div>
+
+        <p class="enigme-description" style="text-align: center; font-style: italic;">
+            USE THE HANDCUFFS TO GET THE FINAL CODE
+        </p>
+
+        <div class="code-section" style="background: rgba(201, 162, 39, 0.05); border-color: var(--accent);">
+            <div class="code-label" style="color: var(--accent);">HANDCUFF CODE</div>
+            <div class="code-input-group">
+                <input type="text" class="code-char" maxlength="1" data-index="0" id="hc-0">
+                <input type="text" class="code-char" maxlength="1" data-index="1" id="hc-1">
+                <input type="text" class="code-char" maxlength="1" data-index="2" id="hc-2">
+                <input type="text" class="code-char" maxlength="1" data-index="3" id="hc-3">
+                <input type="text" class="code-char" maxlength="1" data-index="4" id="hc-4">
+            </div>
+            <button class="submit-code" onclick="checkHandcuffCode()" style="background: var(--accent); color: var(--bg-dark);">UNLOCK HANDCUFFS</button>
+            <div class="code-error" id="error-hc"></div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- PART 3 -->
+        <div class="part-indicator" id="part3-header" style="display: none;">PART 3 — FIND THE CULPRIT</div>
+
+        <div id="part3-content" style="display: none;">
+
+            <p class="enigme-description" style="text-align: center;">
+                Rearrange the 9 pieces to reveal the image. Then unscramble the letters below to find the culprit's name.
+            </p>
+
+            <!-- PUZZLE -->
+            <div style="text-align: center; margin: 1.5rem 0;">
+                <div id="puzzle-container" style="
+                    display: inline-grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 3px;
+                    width: 300px;
+                    height: 300px;
+                    background: var(--border);
+                    padding: 3px;
+                    border: 2px solid var(--border);
+                ">
+                </div>
+            </div>
+
+            <p id="puzzle-status" style="text-align: center; font-family: 'Special Elite', cursive; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+                Tap two pieces to swap them
+            </p>
+
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <button class="reset-btn" onclick="shufflePuzzle()">🔀 SHUFFLE</button>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <p class="enigme-description" style="text-align: center;">
+                PUT THE LETTERS IN THE CORRECT ORDER TO FIND THE CULPRIT.<br>
+                TO ARREST HIM / HER, YOU USE THE HANDCUFFS.
+            </p>
+
+            <div class="letter-scramble" id="scramble-letters"></div>
+
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem;">Your answer:</p>
+            <div class="answer-slots" id="answer-slots"></div>
+
+            <div style="text-align: center; margin-top: 1rem;">
+                <button class="reset-btn" onclick="resetScramble()">↺ RESET LETTERS</button>
+            </div>
+
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <button class="submit-code" id="arrest-btn" onclick="checkArrest()" style="background: var(--danger);">🚨 ARREST THE SUSPECT 🚨</button>
+            </div>
+            <div class="code-error" id="error-arrest" style="text-align: center;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== VICTORY ===== -->
+<div id="victory">
+    <div style="width: 100%; max-width: 500px; padding: 2rem;">
+        <div style="text-align: center;">
+            <div style="font-size: 5rem; margin-bottom: 1rem; animation: fadeInUp 0.6s ease-out;">🎉</div>
+            <h1 class="victory-title">CASE CLOSED</h1>
+            <p class="victory-subtitle">The suspect has been arrested. Well done, detective!</p>
+        </div>
+
+        <div id="proof-card" style="
+            margin-top: 2rem;
+            background: #111;
+            border: 2px solid var(--accent);
+            padding: 2rem;
+            position: relative;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        ">
+            <div style="position: absolute; top: -1px; left: 20px; background: var(--accent); color: var(--bg-dark); font-family: 'Bebas Neue', sans-serif; font-size: 0.75rem; letter-spacing: 3px; padding: 2px 12px;">PROOF OF COMPLETION</div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; margin-bottom: 1.5rem;">
+                <div>
+                    <div style="font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--accent); letter-spacing: 3px;">ESCAPE GAME</div>
+                    <div style="font-family: 'Special Elite', cursive; font-size: 0.8rem; color: var(--text-muted);">Semaine des Langues</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-family: 'Courier Prime', monospace; font-size: 0.75rem; color: var(--text-muted);">VERIFIED</div>
+                    <div style="font-size: 1.5rem;">✅</div>
+                </div>
+            </div>
+
+            <div style="height: 1px; background: var(--border); margin-bottom: 1.2rem;"></div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.2rem;">
+                <div>
+                    <div style="font-family: 'Oswald', sans-serif; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 4px;">DATE & TIME</div>
+                    <div style="font-family: 'Courier Prime', monospace; font-size: 0.85rem; color: var(--text);" id="proof-date"></div>
+                </div>
+                <div>
+                    <div style="font-family: 'Oswald', sans-serif; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 4px;">UNIQUE CODE</div>
+                    <div style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--accent); letter-spacing: 4px;" id="proof-code"></div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.2rem;">
+                <div>
+                    <div style="font-family: 'Oswald', sans-serif; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 4px;">SUSPECT FOUND</div>
+                    <div style="font-family: 'Special Elite', cursive; font-size: 1rem; color: var(--danger-light);">SCHIRA</div>
+                </div>
+                <div>
+                    <div style="font-family: 'Oswald', sans-serif; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 4px;">STATUS</div>
+                    <div style="font-family: 'Oswald', sans-serif; font-size: 1rem; color: var(--success-light);">ARRESTED ✓</div>
+                </div>
+            </div>
+
+            <div style="height: 1px; background: var(--border); margin-bottom: 1rem;"></div>
+
+            <div style="text-align: center;">
+                <div style="font-family: 'Courier Prime', monospace; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 1px;">VERIFICATION HASH</div>
+                <div style="font-family: 'Courier Prime', monospace; font-size: 0.7rem; color: var(--text-muted); opacity: 0.6; margin-top: 4px; word-break: break-all;" id="proof-hash"></div>
+            </div>
+        </div>
+
+        <p style="text-align: center; font-family: 'Special Elite', cursive; font-size: 0.85rem; color: var(--text-muted); margin-top: 1.5rem; animation: fadeInUp 1.2s ease-out 0.5s both;">
+            📸 Screenshot this as proof of completion!
+        </p>
+
+        <div style="text-align: center; margin-top: 2rem; animation: fadeInUp 1.4s ease-out 0.7s both;">
+            <button class="start-btn" onclick="location.reload()">RESTART</button>
+        </div>
+    </div>
+</div>
+
+<!-- NAV DOTS -->
+<div class="nav-help" id="nav-dots" style="display: none;">
+    <button class="nav-dot current" onclick="goToScreen('enigme1')" id="dot-1" title="Enigme 1"></button>
+    <button class="nav-dot" onclick="goToScreen('enigme2')" id="dot-2" title="Enigme 2"></button>
+    <button class="nav-dot" onclick="goToScreen('enigme3')" id="dot-3" title="Enigme 3"></button>
+    <button class="nav-dot" onclick="goToScreen('enigme4')" id="dot-4" title="Enigme 4"></button>
+    <button class="nav-dot" onclick="goToScreen('enigme5')" id="dot-5" title="Enigme 5"></button>
+    <button class="nav-dot" onclick="goToScreen('enigme6')" id="dot-6" title="Enigme 6"></button>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
