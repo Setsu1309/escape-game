@@ -161,7 +161,7 @@ function checkHandcuffCode() {
     }
     code = code.toUpperCase();
 
-    if (code === '8297A') {
+    if (code === '0801') {
         document.getElementById('error-hc').textContent = '';
         document.getElementById('part3-header').style.display = 'block';
         document.getElementById('part3-content').style.display = 'block';
