@@ -156,7 +156,7 @@ function scanMeme(el, num) {
 // ===== ENIGME 6: HANDCUFF CODE =====
 function checkHandcuffCode() {
     let code = '';
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
         code += document.getElementById('hc-' + i).value;
     }
     code = code.toUpperCase();
