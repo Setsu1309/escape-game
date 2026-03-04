@@ -52,8 +52,11 @@
             GO TO THE HIGH SCHOOL'S ENTRANCE AND FIND THIS POSTER
         </div>
 
-        <div style="margin: 1.5rem 0; text-align: center;">
-            <img src="affiche wanted.jpg" alt="Wanted Poster" style="max-width: 100%; border: 2px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+        <div class="wanted-poster">
+            <h3>WANTED</h3>
+            <div class="wanted-silhouette">🕵️</div>
+            <p style="font-family: 'Special Elite', cursive; font-size: 1rem;">SUSPECT AT LARGE</p>
+            <p class="reward">PAY ATTENTION TO FIND THE CODE</p>
         </div>
 
         <p class="enigme-description">
@@ -92,8 +95,10 @@
             Solve this riddle to unlock the next clue. Think carefully — the answer is a single English word.
         </p>
 
-        <div style="margin: 1.5rem 0; text-align: center;">
-            <img src="Affiche_enigme2.jpg" alt="Charade" style="max-width: 100%; border: 2px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+        <div class="charade-box">
+            <div class="charade-line"><strong>My first</strong> is a conflict between nations</div>
+            <div class="charade-line"><strong>My second</strong> is a space inside a building</div>
+            <div class="charade-line"><strong>My whole</strong> is where strategic decisions are made</div>
         </div>
 
         <div class="question-block">
@@ -260,7 +265,7 @@
         <h2 class="enigme-title">Scan the Memes</h2>
 
         <p class="enigme-description">
-            You'll find several QR codes around the school. Most of them are memes — distractions! You must scan ALL of them to find the real clue. The solution is hidden in the last one you scan.
+            You'll find 11 QR codes hidden around the school. 10 of them are fake — scan ALL of them to unlock the real one. The final QR code will only reveal the clue once you've scanned the other 10!
         </p>
 
         <div class="compass-hint">🧭</div>
@@ -269,18 +274,26 @@
             Use the compass to navigate. Scan every QR code you find!
         </p>
 
-        <div class="meme-grid">
-            <div class="meme-qr" onclick="scanMeme(this, 1)"></div>
-            <div class="meme-qr" onclick="scanMeme(this, 2)"></div>
-            <div class="meme-qr" onclick="scanMeme(this, 3)"></div>
-            <div class="meme-qr" onclick="scanMeme(this, 4)"></div>
-            <div class="meme-qr" onclick="scanMeme(this, 5)"></div>
-            <div class="meme-qr" onclick="scanMeme(this, 6)"></div>
+        <div class="meme-grid" style="grid-template-columns: repeat(5, 1fr);">
+            <div class="meme-qr"></div>
+            <div class="meme-qr"></div>
+            <div class="meme-qr"></div>
+            <div class="meme-qr"></div>
+            <div class="meme-qr"></div>
+            <div class="meme-qr"></div>
+            <div class="meme-qr"></div>
+            <div class="meme-qr"></div>
+            <div class="meme-qr"></div>
+            <div class="meme-qr"></div>
         </div>
 
         <p class="enigme-description" id="meme-status" style="text-align: center;">
-            QR Codes scanned: <strong>0 / 6</strong>
+            QR Codes scanned: <strong>0 / 10</strong>
         </p>
+
+        <div style="text-align: center; margin-bottom: 1rem;">
+            <button class="reset-btn" onclick="resetQRScans()">↺ RESET SCANS</button>
+        </div>
 
         <div class="code-section">
             <div class="code-label">ENTER THE CODE</div>
@@ -345,6 +358,7 @@
                 <input type="text" class="code-char" maxlength="1" data-index="1" id="hc-1">
                 <input type="text" class="code-char" maxlength="1" data-index="2" id="hc-2">
                 <input type="text" class="code-char" maxlength="1" data-index="3" id="hc-3">
+                <input type="text" class="code-char" maxlength="1" data-index="4" id="hc-4">
             </div>
             <button class="submit-code" onclick="checkHandcuffCode()" style="background: var(--accent); color: var(--bg-dark);">UNLOCK HANDCUFFS</button>
             <div class="code-error" id="error-hc"></div>
