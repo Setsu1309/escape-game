@@ -142,26 +142,163 @@ function checkQ3(num) {
     }
 }
 
-// ===== ENIGME 5: MEME QR =====
-function scanMeme(el, num) {
-    if (!el.classList.contains('scanned')) {
-        el.classList.add('scanned');
-        memeCount++;
-        document.getElementById('meme-status').innerHTML =
-            `QR Codes scanned: <strong>${memeCount} / 6</strong>` +
-            (memeCount === 6 ? ' — 🎯 All scanned! Look for the ragebait video clue!' : '');
+// ===== ENIGME 5: QR CODE SCANNING SYSTEM =====
+const TOTAL_MEMES = 10;
+
+function getScannedQRs() {
+    try {
+        return JSON.parse(localStorage.getItem('scannedQRs') || '[]');
+    } catch(e) {
+        return [];
     }
 }
+
+function saveScannedQR(num) {
+    const scanned = getScannedQRs();
+    if (!scanned.includes(num)) {
+        scanned.push(num);
+        localStorage.setItem('scannedQRs', JSON.stringify(scanned));
+    }
+    return scanned;
+}
+
+function updateMemeGrid() {
+    const scanned = getScannedQRs();
+    const grid = document.querySelectorAll('.meme-qr');
+    grid.forEach((el, i) => {
+        const num = i + 1;
+        if (scanned.includes(num)) {
+            el.classList.add('scanned');
+        }
+    });
+    document.getElementById('meme-status').innerHTML =
+        `QR Codes scanned: <strong>${scanned.length} / ${TOTAL_MEMES}</strong>` +
+        (scanned.length >= TOTAL_MEMES ? ' — 🎯 All scanned! Now scan the final QR code!' : '');
+}
+
+function showQRPopup(type, num) {
+    // Remove existing popup
+    const existing = document.getElementById('qr-popup');
+    if (existing) existing.remove();
+
+    const popup = document.createElement('div');
+    popup.id = 'qr-popup';
+    popup.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.9); z-index: 10000;
+        display: flex; align-items: center; justify-content: center;
+        flex-direction: column; padding: 2rem; animation: fadeIn 0.3s ease-out;
+    `;
+
+    if (type === 'meme') {
+        const scanned = saveScannedQR(num);
+        popup.innerHTML = `
+            <div style="max-width: 400px; width: 100%; text-align: center;">
+                <img src="${num}.png" alt="Meme ${num}" style="max-width: 100%; max-height: 60vh; border: 2px solid var(--border); margin-bottom: 1rem;">
+                <p style="font-family: 'Special Elite', cursive; color: var(--accent); font-size: 1.1rem; margin-bottom: 0.5rem;">
+                    😂 Nice try! This is not the right one...
+                </p>
+                <p style="font-family: 'Courier Prime', monospace; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">
+                    QR codes scanned: ${scanned.length} / ${TOTAL_MEMES}
+                </p>
+                <button onclick="closeQRPopup()" style="
+                    font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 3px;
+                    padding: 0.7rem 2rem; background: transparent; border: 2px solid var(--accent);
+                    color: var(--accent); cursor: pointer;
+                ">CONTINUE</button>
+            </div>
+        `;
+    } else if (type === 'final') {
+        const scanned = getScannedQRs();
+        if (scanned.length >= TOTAL_MEMES) {
+            popup.innerHTML = `
+                <div style="max-width: 400px; width: 100%; text-align: center;">
+                    <img src="final.png" alt="Final clue" style="max-width: 100%; max-height: 60vh; border: 2px solid var(--success-light); margin-bottom: 1rem;">
+                    <p style="font-family: 'Bebas Neue', sans-serif; color: var(--success-light); font-size: 1.5rem; letter-spacing: 3px; margin-bottom: 0.5rem;">
+                        🎯 YOU FOUND THE REAL CLUE!
+                    </p>
+                    <p style="font-family: 'Special Elite', cursive; color: var(--text); font-size: 1rem; margin-bottom: 1.5rem;">
+                        Use this to find the code and enter it on the game page.
+                    </p>
+                    <button onclick="closeQRPopup()" style="
+                        font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 3px;
+                        padding: 0.7rem 2rem; background: var(--success); border: none;
+                        color: var(--text); cursor: pointer;
+                    ">BACK TO GAME</button>
+                </div>
+            `;
+        } else {
+            const remaining = TOTAL_MEMES - scanned.length;
+            popup.innerHTML = `
+                <div style="max-width: 400px; width: 100%; text-align: center;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">🔒</div>
+                    <p style="font-family: 'Bebas Neue', sans-serif; color: var(--danger-light); font-size: 1.5rem; letter-spacing: 3px; margin-bottom: 0.5rem;">
+                        LOCKED
+                    </p>
+                    <p style="font-family: 'Special Elite', cursive; color: var(--text); font-size: 1rem; margin-bottom: 0.5rem;">
+                        You must scan all the other QR codes first!
+                    </p>
+                    <p style="font-family: 'Courier Prime', monospace; color: var(--accent); font-size: 1rem; margin-bottom: 1.5rem;">
+                        ${remaining} more to go...
+                    </p>
+                    <button onclick="closeQRPopup()" style="
+                        font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 3px;
+                        padding: 0.7rem 2rem; background: transparent; border: 2px solid var(--danger-light);
+                        color: var(--danger-light); cursor: pointer;
+                    ">GO BACK</button>
+                </div>
+            `;
+        }
+    }
+
+    document.body.appendChild(popup);
+}
+
+function closeQRPopup() {
+    const popup = document.getElementById('qr-popup');
+    if (popup) popup.remove();
+    updateMemeGrid();
+}
+
+function resetQRScans() {
+    localStorage.removeItem('scannedQRs');
+    updateMemeGrid();
+}
+
+// Check URL for QR parameter on page load
+function checkQRParam() {
+    const params = new URLSearchParams(window.location.search);
+    const qr = params.get('qr');
+    if (qr) {
+        if (qr === 'final') {
+            showQRPopup('final');
+        } else {
+            const num = parseInt(qr);
+            if (num >= 1 && num <= TOTAL_MEMES) {
+                showQRPopup('meme', num);
+            }
+        }
+        // Clean URL without reloading
+        window.history.replaceState({}, '', window.location.pathname);
+    }
+}
+
+// Run on page load
+document.addEventListener('DOMContentLoaded', function() {
+    checkQRParam();
+    // Update grid if on enigme 5
+    setTimeout(updateMemeGrid, 500);
+});
 
 // ===== ENIGME 6: HANDCUFF CODE =====
 function checkHandcuffCode() {
     let code = '';
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 5; i++) {
         code += document.getElementById('hc-' + i).value;
     }
     code = code.toUpperCase();
 
-    if (code === '0801') {
+    if (code === '8297A') {
         document.getElementById('error-hc').textContent = '';
         document.getElementById('part3-header').style.display = 'block';
         document.getElementById('part3-content').style.display = 'block';
