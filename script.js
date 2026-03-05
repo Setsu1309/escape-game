@@ -185,8 +185,8 @@ function showQRPopup(type, num) {
     if (type === 'meme') {
         const scanned = saveScannedQR(num);
         popup.innerHTML = `
-            <div style="max-width: 400px; width: 100%; text-align: center;">
-                <img src="${num}.png" alt="Meme ${num}" style="max-width: 100%; max-height: 60vh; border: 2px solid var(--border); margin-bottom: 1rem;">
+                <div style="max-width: 400px; width: 100%; text-align: center;">
+                    <video src="final.mp4" controls autoplay style="max-width: 100%; max-height: 60vh; border: 2px solid var(--success-light); margin-bottom: 1rem;"></video>
                 <p style="font-family: 'Special Elite', cursive; color: var(--accent); font-size: 1.1rem; margin-bottom: 0.5rem;">
                     😂 Nice try! This is not the right one...
                 </p>
