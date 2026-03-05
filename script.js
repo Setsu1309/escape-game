@@ -1,9 +1,7 @@
-// ===== STATE =====
 let currentScreen = 'landing';
 let completedScreens = new Set();
 let memeCount = 0;
 
-// ===== CODE INPUT AUTO-ADVANCE =====
 document.querySelectorAll('.code-input-group').forEach(group => {
     const inputs = group.querySelectorAll('.code-char');
     inputs.forEach((input, i) => {
@@ -20,7 +18,6 @@ document.querySelectorAll('.code-input-group').forEach(group => {
     });
 });
 
-// ===== NAVIGATION =====
 function showScreen(id) {
     document.querySelectorAll('.screen, #landing, #victory').forEach(s => {
         s.classList.remove('active');
@@ -64,7 +61,6 @@ function updateNav() {
     }
 }
 
-// ===== CODE CHECKING =====
 function checkCode(enigmeNum, expectedCode, nextScreen) {
     const screen = document.getElementById('enigme' + enigmeNum);
     const codeSections = screen.querySelectorAll('.code-section');
@@ -102,7 +98,6 @@ function checkCode(enigmeNum, expectedCode, nextScreen) {
     }
 }
 
-// ===== ENIGME 2: CHARADE =====
 function checkCharade() {
     const answers = {
         charade1: 'war',
@@ -129,7 +124,6 @@ function checkCharade() {
     }
 }
 
-// ===== ENIGME 3: CAFETERIA QUESTIONS =====
 function checkQ3(num) {
     const input = document.getElementById('q3-' + num);
     const fb = document.getElementById('fb-q3-' + num);
@@ -142,7 +136,6 @@ function checkQ3(num) {
     }
 }
 
-// ===== ENIGME 5: QR CODE SCANNING SYSTEM =====
 const TOTAL_MEMES = 10;
 
 function getScannedQRs() {
@@ -177,7 +170,6 @@ function updateMemeGrid() {
 }
 
 function showQRPopup(type, num) {
-    // Remove existing popup
     const existing = document.getElementById('qr-popup');
     if (existing) existing.remove();
 
@@ -265,11 +257,15 @@ function resetQRScans() {
     updateMemeGrid();
 }
 
-// Check URL for QR parameter on page load
-function checkQRParam() {
+document.addEventListener('DOMContentLoaded', function() {
     const params = new URLSearchParams(window.location.search);
     const qr = params.get('qr');
+    
     if (qr) {
+        document.getElementById('nav-dots').style.display = 'flex';
+        showScreen('enigme5');
+        setTimeout(updateMemeGrid, 300);
+        
         if (qr === 'final') {
             showQRPopup('final');
         } else {
@@ -278,19 +274,12 @@ function checkQRParam() {
                 showQRPopup('meme', num);
             }
         }
-        // Clean URL without reloading
         window.history.replaceState({}, '', window.location.pathname);
+    } else {
+        setTimeout(updateMemeGrid, 500);
     }
-}
-
-// Run on page load
-document.addEventListener('DOMContentLoaded', function() {
-    checkQRParam();
-    // Update grid if on enigme 5
-    setTimeout(updateMemeGrid, 500);
 });
 
-// ===== ENIGME 6: HANDCUFF CODE =====
 function checkHandcuffCode() {
     let code = '';
     for (let i = 0; i < 5; i++) {
@@ -313,29 +302,23 @@ function checkHandcuffCode() {
     }
 }
 
-// ===== ENIGME 6: IMAGE PUZZLE (TAQUIN) =====
 const RAT_IMG_SRC = 'Skirat.jpg';
 const GRID_SIZE = 3;
 const TOTAL_TILES = GRID_SIZE * GRID_SIZE; // 9
 const EMPTY_TILE = TOTAL_TILES - 1; // piece 8 is hidden (bottom-right)
 
-// puzzleState[slotIndex] = pieceId
-// EMPTY_TILE (8) = the hole
 let puzzleState = [];
 let puzzleSolved = false;
 
 function initPuzzle() {
     puzzleSolved = false;
-    // Start solved then shuffle with valid moves to ensure solvability
     puzzleState = [0,1,2,3,4,5,6,7,8];
-    // Do 200 random valid moves to shuffle
     for (let i = 0; i < 200; i++) {
         const emptyIdx = puzzleState.indexOf(EMPTY_TILE);
         const neighbors = getNeighbors(emptyIdx);
         const randomNeighbor = neighbors[Math.floor(Math.random() * neighbors.length)];
         [puzzleState[emptyIdx], puzzleState[randomNeighbor]] = [puzzleState[randomNeighbor], puzzleState[emptyIdx]];
     }
-    // Make sure it's not already solved
     if (puzzleState.every((v, i) => v === i)) {
         const emptyIdx = puzzleState.indexOf(EMPTY_TILE);
         const neighbors = getNeighbors(emptyIdx);
@@ -364,12 +347,10 @@ function renderPuzzle() {
         piece.className = 'puzzle-piece';
 
         if (pieceId === EMPTY_TILE && !puzzleSolved) {
-            // This is the hole - show empty black square
             piece.style.background = '#0a0a0a';
             piece.style.cursor = 'default';
             piece.style.border = '1px solid var(--border)';
         } else {
-            // Show the image piece
             const pieceRow = Math.floor(pieceId / GRID_SIZE);
             const pieceCol = pieceId % GRID_SIZE;
 
@@ -383,7 +364,6 @@ function renderPuzzle() {
             ">`;
             piece.style.overflow = 'hidden';
 
-            // Highlight movable pieces (adjacent to hole)
             if (!puzzleSolved) {
                 const emptyIdx = puzzleState.indexOf(EMPTY_TILE);
                 const neighbors = getNeighbors(emptyIdx);
@@ -400,11 +380,9 @@ function renderPuzzle() {
         container.appendChild(piece);
     });
 
-    // Check if solved (all pieces in order, including the empty tile at position 8)
     if (puzzleState.every((v, i) => v === i) && !puzzleSolved) {
         puzzleSolved = true;
         document.getElementById('puzzle-status').innerHTML = '✅ <span style="color: var(--success-light);">Puzzle solved! Now unscramble the letters below.</span>';
-        // Re-render to show the last piece
         renderPuzzle();
     }
 
@@ -422,7 +400,6 @@ function handlePieceClick(slotIndex) {
     const emptyIdx = puzzleState.indexOf(EMPTY_TILE);
     const neighbors = getNeighbors(emptyIdx);
 
-    // Only allow clicking pieces adjacent to the hole
     if (neighbors.includes(slotIndex)) {
         [puzzleState[emptyIdx], puzzleState[slotIndex]] = [puzzleState[slotIndex], puzzleState[emptyIdx]];
         renderPuzzle();
@@ -433,7 +410,6 @@ function shufflePuzzle() {
     initPuzzle();
 }
 
-// ===== ENIGME 6: LETTER SCRAMBLE =====
 const TARGET_WORD = 'SCHIRA';
 let scrambledLetters = [];
 let selectedLetters = [];
@@ -509,7 +485,6 @@ function checkArrest() {
     }
 }
 
-// ===== PROOF CODE GENERATION =====
 function generateProofCode() {
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     let code = '';
@@ -541,7 +516,6 @@ function showVictoryScreen() {
     launchConfetti();
 }
 
-// ===== CONFETTI =====
 function launchConfetti() {
     const colors = ['#c9a227', '#8b0000', '#2d6a2d', '#e0d5c1', '#cc0000'];
     for (let i = 0; i < 60; i++) {
