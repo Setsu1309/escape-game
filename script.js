@@ -313,130 +313,102 @@ function checkHandcuffCode() {
     }
 }
 
-// ===== ENIGME 6: IMAGE PUZZLE =====
-const RAT_SVG = `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
-    <!-- Sky background -->
-    <rect width="300" height="300" fill="#e8f0fe"/>
-    <!-- Mountains -->
-    <polygon points="0,180 60,80 120,180" fill="#b0c4de"/>
-    <polygon points="80,180 160,50 240,180" fill="#8faabe"/>
-    <polygon points="180,180 260,90 340,180" fill="#b0c4de"/>
-    <!-- Snow peaks -->
-    <polygon points="140,50 150,70 160,50 155,60 145,60" fill="white"/>
-    <polygon points="50,80 60,95 70,80 65,88 55,88" fill="white"/>
-    <!-- Snow ground -->
-    <rect x="0" y="180" width="300" height="120" fill="white"/>
-    <!-- Ski tracks -->
-    <line x1="80" y1="280" x2="180" y2="200" stroke="#ccc" stroke-width="1.5" stroke-dasharray="4,4"/>
-    <line x1="90" y1="280" x2="190" y2="200" stroke="#ccc" stroke-width="1.5" stroke-dasharray="4,4"/>
-    <!-- Skis -->
-    <line x1="115" y1="258" x2="175" y2="218" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
-    <line x1="125" y1="262" x2="185" y2="222" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
-    <!-- Rat body -->
-    <ellipse cx="150" cy="230" rx="28" ry="22" fill="#8b7355" transform="rotate(-20, 150, 230)"/>
-    <!-- Rat belly -->
-    <ellipse cx="152" cy="234" rx="18" ry="14" fill="#c4a97d" transform="rotate(-20, 152, 234)"/>
-    <!-- Rat head -->
-    <circle cx="130" cy="210" r="18" fill="#8b7355"/>
-    <!-- Rat snout -->
-    <ellipse cx="117" cy="215" rx="10" ry="7" fill="#a08860"/>
-    <!-- Nose -->
-    <circle cx="109" cy="213" r="3" fill="#333"/>
-    <!-- Eyes -->
-    <circle cx="125" cy="205" r="4" fill="white"/>
-    <circle cx="125" cy="205" r="2.5" fill="#333"/>
-    <circle cx="126" cy="204" r="1" fill="white"/>
-    <!-- Ear -->
-    <circle cx="138" cy="195" r="10" fill="#d4a76a"/>
-    <circle cx="138" cy="195" r="6" fill="#e8c49a"/>
-    <!-- Other ear -->
-    <circle cx="122" cy="196" r="8" fill="#d4a76a"/>
-    <circle cx="122" cy="196" r="5" fill="#e8c49a"/>
-    <!-- Whiskers -->
-    <line x1="109" y1="213" x2="85" y2="208" stroke="#555" stroke-width="0.8"/>
-    <line x1="109" y1="215" x2="84" y2="216" stroke="#555" stroke-width="0.8"/>
-    <line x1="109" y1="217" x2="86" y2="224" stroke="#555" stroke-width="0.8"/>
-    <!-- Mouth smile -->
-    <path d="M112,219 Q117,224 122,220" fill="none" stroke="#555" stroke-width="1"/>
-    <!-- Arm with ski pole -->
-    <line x1="140" y1="222" x2="110" y2="195" stroke="#8b7355" stroke-width="5" stroke-linecap="round"/>
-    <line x1="110" y1="195" x2="105" y2="260" stroke="#666" stroke-width="2"/>
-    <circle cx="105" cy="260" r="4" fill="none" stroke="#666" stroke-width="1.5"/>
-    <!-- Other arm with pole -->
-    <line x1="158" y1="225" x2="178" y2="200" stroke="#8b7355" stroke-width="5" stroke-linecap="round"/>
-    <line x1="178" y1="200" x2="185" y2="265" stroke="#666" stroke-width="2"/>
-    <circle cx="185" cy="265" r="4" fill="none" stroke="#666" stroke-width="1.5"/>
-    <!-- Tail -->
-    <path d="M172,240 Q200,230 195,205 Q192,195 198,190" fill="none" stroke="#8b7355" stroke-width="3" stroke-linecap="round"/>
-    <!-- Scarf -->
-    <path d="M120,220 Q130,225 142,218" fill="none" stroke="#e74c3c" stroke-width="4" stroke-linecap="round"/>
-    <path d="M142,218 Q148,230 145,240" fill="none" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
-    <!-- Goggles -->
-    <ellipse cx="126" cy="206" rx="7" ry="5" fill="none" stroke="#f39c12" stroke-width="2"/>
-    <rect x="132" y="204" width="6" height="2" fill="#f39c12" rx="1"/>
-    <!-- Snow particles -->
-    <circle cx="30" cy="100" r="2" fill="white" opacity="0.8"/>
-    <circle cx="250" cy="60" r="2.5" fill="white" opacity="0.7"/>
-    <circle cx="70" cy="150" r="1.5" fill="white" opacity="0.6"/>
-    <circle cx="220" cy="130" r="2" fill="white" opacity="0.8"/>
-    <circle cx="280" cy="170" r="1.5" fill="white" opacity="0.5"/>
-    <circle cx="40" cy="50" r="2" fill="white" opacity="0.7"/>
-    <circle cx="200" cy="30" r="1.5" fill="white" opacity="0.6"/>
-</svg>`;
+// ===== ENIGME 6: IMAGE PUZZLE (TAQUIN) =====
+const RAT_IMG_SRC = 'Skirat.jpg';
+const GRID_SIZE = 3;
+const TOTAL_TILES = GRID_SIZE * GRID_SIZE; // 9
+const EMPTY_TILE = TOTAL_TILES - 1; // piece 8 is hidden (bottom-right)
 
-let puzzlePieces = [0,1,2,3,4,5,6,7,8];
-let selectedPiece = null;
+// puzzleState[slotIndex] = pieceId
+// EMPTY_TILE (8) = the hole
+let puzzleState = [];
 let puzzleSolved = false;
 
 function initPuzzle() {
-    shufflePuzzle();
-}
-
-function shufflePuzzle() {
     puzzleSolved = false;
-    selectedPiece = null;
-    puzzlePieces = [0,1,2,3,4,5,6,7,8];
-    for (let i = puzzlePieces.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [puzzlePieces[i], puzzlePieces[j]] = [puzzlePieces[j], puzzlePieces[i]];
+    // Start solved then shuffle with valid moves to ensure solvability
+    puzzleState = [0,1,2,3,4,5,6,7,8];
+    // Do 200 random valid moves to shuffle
+    for (let i = 0; i < 200; i++) {
+        const emptyIdx = puzzleState.indexOf(EMPTY_TILE);
+        const neighbors = getNeighbors(emptyIdx);
+        const randomNeighbor = neighbors[Math.floor(Math.random() * neighbors.length)];
+        [puzzleState[emptyIdx], puzzleState[randomNeighbor]] = [puzzleState[randomNeighbor], puzzleState[emptyIdx]];
     }
-    if (puzzlePieces.every((v, i) => v === i)) {
-        [puzzlePieces[0], puzzlePieces[8]] = [puzzlePieces[8], puzzlePieces[0]];
+    // Make sure it's not already solved
+    if (puzzleState.every((v, i) => v === i)) {
+        const emptyIdx = puzzleState.indexOf(EMPTY_TILE);
+        const neighbors = getNeighbors(emptyIdx);
+        [puzzleState[emptyIdx], puzzleState[neighbors[0]]] = [puzzleState[neighbors[0]], puzzleState[emptyIdx]];
     }
     renderPuzzle();
+}
+
+function getNeighbors(idx) {
+    const row = Math.floor(idx / GRID_SIZE);
+    const col = idx % GRID_SIZE;
+    const neighbors = [];
+    if (row > 0) neighbors.push(idx - GRID_SIZE); // up
+    if (row < GRID_SIZE - 1) neighbors.push(idx + GRID_SIZE); // down
+    if (col > 0) neighbors.push(idx - 1); // left
+    if (col < GRID_SIZE - 1) neighbors.push(idx + 1); // right
+    return neighbors;
 }
 
 function renderPuzzle() {
     const container = document.getElementById('puzzle-container');
     container.innerHTML = '';
 
-    puzzlePieces.forEach((pieceId, slotIndex) => {
+    puzzleState.forEach((pieceId, slotIndex) => {
         const piece = document.createElement('div');
         piece.className = 'puzzle-piece';
-        if (selectedPiece === slotIndex) {
-            piece.classList.add('selected');
+
+        if (pieceId === EMPTY_TILE && !puzzleSolved) {
+            // This is the hole - show empty black square
+            piece.style.background = '#0a0a0a';
+            piece.style.cursor = 'default';
+            piece.style.border = '1px solid var(--border)';
+        } else {
+            // Show the image piece
+            const pieceRow = Math.floor(pieceId / GRID_SIZE);
+            const pieceCol = pieceId % GRID_SIZE;
+
+            piece.innerHTML = `<img src="${RAT_IMG_SRC}" style="
+                width: 300px;
+                height: 300px;
+                position: absolute;
+                top: ${-pieceRow * 100}%;
+                left: ${-pieceCol * 100}%;
+                object-fit: cover;
+            ">`;
+            piece.style.overflow = 'hidden';
+
+            // Highlight movable pieces (adjacent to hole)
+            if (!puzzleSolved) {
+                const emptyIdx = puzzleState.indexOf(EMPTY_TILE);
+                const neighbors = getNeighbors(emptyIdx);
+                if (neighbors.includes(slotIndex)) {
+                    piece.style.cursor = 'pointer';
+                    piece.style.border = '1px solid rgba(201, 162, 39, 0.3)';
+                } else {
+                    piece.style.cursor = 'default';
+                }
+            }
         }
 
-        const row = Math.floor(pieceId / 3);
-        const col = pieceId % 3;
-
-        piece.innerHTML = `<div style="
-            width: 300px;
-            height: 300px;
-            position: absolute;
-            top: ${-row * 100}%;
-            left: ${-col * 100}%;
-        ">${RAT_SVG}</div>`;
-
-        piece.style.overflow = 'hidden';
         piece.onclick = () => handlePieceClick(slotIndex);
         container.appendChild(piece);
     });
 
-    if (puzzlePieces.every((v, i) => v === i)) {
+    // Check if solved (all pieces in order, including the empty tile at position 8)
+    if (puzzleState.every((v, i) => v === i) && !puzzleSolved) {
         puzzleSolved = true;
         document.getElementById('puzzle-status').innerHTML = '✅ <span style="color: var(--success-light);">Puzzle solved! Now unscramble the letters below.</span>';
+        // Re-render to show the last piece
+        renderPuzzle();
+    }
+
+    if (puzzleSolved) {
         document.querySelectorAll('.puzzle-piece').forEach(p => {
             p.style.border = 'none';
             p.style.cursor = 'default';
@@ -447,17 +419,18 @@ function renderPuzzle() {
 function handlePieceClick(slotIndex) {
     if (puzzleSolved) return;
 
-    if (selectedPiece === null) {
-        selectedPiece = slotIndex;
-        renderPuzzle();
-    } else if (selectedPiece === slotIndex) {
-        selectedPiece = null;
-        renderPuzzle();
-    } else {
-        [puzzlePieces[selectedPiece], puzzlePieces[slotIndex]] = [puzzlePieces[slotIndex], puzzlePieces[selectedPiece]];
-        selectedPiece = null;
+    const emptyIdx = puzzleState.indexOf(EMPTY_TILE);
+    const neighbors = getNeighbors(emptyIdx);
+
+    // Only allow clicking pieces adjacent to the hole
+    if (neighbors.includes(slotIndex)) {
+        [puzzleState[emptyIdx], puzzleState[slotIndex]] = [puzzleState[slotIndex], puzzleState[emptyIdx]];
         renderPuzzle();
     }
+}
+
+function shufflePuzzle() {
+    initPuzzle();
 }
 
 // ===== ENIGME 6: LETTER SCRAMBLE =====
