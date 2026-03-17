@@ -154,7 +154,7 @@
 
         <div class="question-block">
             <div class="q-number">QUESTION 1</div>
-            <div class="q-text">I'm fresh with a little elongated loaf of bread. Inside you can find breaded chicken, cheese, tomato, salad and sauce. We often eat me for picnics. My name evokes a king. Who am I?</div>
+            <div class="q-text">I'm fresh with a little elongated loaf of bread. Inside you can find breaded chicken, cheese, tomato, salad and sauce. We often eat me for picnics. My name evokes a king. How much do I cost? (1st number)</div>
             <input type="text" id="q3-1" placeholder="Your answer..." autocomplete="off">
             <button class="check-btn" onclick="checkQ3(1)">CHECK</button>
             <div class="feedback" id="fb-q3-1"></div>
@@ -162,7 +162,7 @@
 
         <div class="question-block">
             <div class="q-number">QUESTION 2</div>
-            <div class="q-text">I'm a little crispy on the outside and soft on the inside. I'm your favorite and the most popular. Who am I?</div>
+            <div class="q-text">I'm a little crispy on the outside and soft on the inside. I'm your favorite and the most popular. How much do I cost? (1st number)</div>
             <input type="text" id="q3-2" placeholder="Your answer..." autocomplete="off">
             <button class="check-btn" onclick="checkQ3(2)">CHECK</button>
             <div class="feedback" id="fb-q3-2"></div>
@@ -170,7 +170,7 @@
 
         <div class="question-block">
             <div class="q-number">QUESTION 3</div>
-            <div class="q-text">I'm on the left as you enter. People watch me on TV. I'm a sport, but here you play me with your hands. How many of us are there?</div>
+            <div class="q-text">I want to play 8 babyfood matches. How much will it cost?</div>
             <input type="text" id="q3-3" placeholder="Your answer (number)..." autocomplete="off">
             <button class="check-btn" onclick="checkQ3(3)">CHECK</button>
             <div class="feedback" id="fb-q3-3"></div>
@@ -178,7 +178,7 @@
 
         <div class="question-block">
             <div class="q-number">QUESTION 4</div>
-            <div class="q-text">I'm a TikTok reference from 2024, I'm salty, I'm the little brother of the big one. Who am I?</div>
+            <div class="q-text">I'm a TikTok reference from 2024, I'm salty, I'm the little brother of the big one. How much do I cost? (1st number)</div>
             <input type="text" id="q3-4" placeholder="Your answer..." autocomplete="off">
             <button class="check-btn" onclick="checkQ3(4)">CHECK</button>
             <div class="feedback" id="fb-q3-4"></div>
@@ -219,9 +219,9 @@
             Complete the quiz about the Tudor dynasty (1485–1603). Once you've finished, enter the code to move on.
         </p>
 
-        <a href="https://learningapps.org/view47043845" target="_blank" class="tudor-link">
-            📜 Take the Tudor Quiz →
-        </a>
+        <div style="width: 100%; height: 500px; border: 1px solid var(--border); margin-bottom: 1.5rem;">
+            <iframe src="https://learningapps.org/view47043845" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
 
         <div class="enigme-instruction">
             Complete the quiz, then enter the code to proceed to the next enigma.
@@ -254,13 +254,33 @@
         <h2 class="enigme-title">Scan the Memes</h2>
 
         <p class="enigme-description">
-            You'll find 11 QR codes hidden around the school. 10 of them are fake — scan ALL of them to unlock the real one. The final QR code will only reveal the clue once you've scanned the other 10!
+            Go back to the entrance of the school and find the compass. They will lead you to the next enigma.
         </p>
 
         <div class="compass-hint">🧭</div>
 
-        <p class="enigme-description" style="text-align: center; font-style: italic;">
-            Use the compass to navigate. Scan every QR code you find!
+        <div class="enigme-instruction">
+            Follow these instructions to find the next enigma:
+        </div>
+
+        <div class="question-block">
+            <div class="q-number">DIRECTIONS</div>
+            <div class="q-text" style="line-height: 2;">
+                🧭 Climb the stairs in front of you<br>
+                🧭 Walk 15 steps towards the north-east<br>
+                🧭 Walk 17 steps towards the south<br>
+                🧭 Walk 10 steps towards the south-east<br>
+                🧭 Climb the stairs<br>
+                🧭 Walk 15 steps towards the south-east<br>
+                🧭 Go down the stairs<br>
+                🧭 Walk 5 steps towards the south-east<br>
+                🧭 Walk 15 steps towards the south<br>
+                🧭 Walk 5 steps towards the west
+            </div>
+        </div>
+
+        <p class="enigme-description">
+            Great, you've found a series of QR codes! 10 of them are fake — scan them until you've found the code!
         </p>
 
         <div class="meme-grid" style="grid-template-columns: repeat(5, 1fr);">
@@ -319,26 +339,15 @@
         </div>
 
         <p class="enigme-description">
-            The secretary will give you a poster and a map of the school. Use the map and the poster to find all the locations. Visit each one and collect the evidence!
+            The secretary will give you a poster of the school. Use the map to visit the first location and follow the clues to the other 4 clues. Note down the numbers in the order.
         </p>
 
         <div class="section-divider"></div>
 
-        <div class="part-indicator">PART 2 — THE HANDCUFFS</div>
-
-        <div class="location-hint">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            GO TO THE HEADMASTER'S SECRETARY AND GIVE HER THE CODE (4 NUMBERS AND A LETTER) TO GET THE HANDCUFFS
-        </div>
-
-        <div class="handcuff-visual">⛓️</div>
-
-        <p class="enigme-description" style="text-align: center; font-style: italic;">
-            USE THE HANDCUFFS TO GET THE FINAL CODE
-        </p>
+        <div class="part-indicator">PART 2 — ENTER THE CODE</div>
 
         <div class="code-section" style="background: rgba(201, 162, 39, 0.05); border-color: var(--accent);">
-            <div class="code-label" style="color: var(--accent);">HANDCUFF CODE</div>
+            <div class="code-label" style="color: var(--accent);">ENTER YOUR CODE</div>
             <div class="code-input-group">
                 <input type="text" class="code-char" maxlength="1" data-index="0" id="hc-0">
                 <input type="text" class="code-char" maxlength="1" data-index="1" id="hc-1">
@@ -385,8 +394,11 @@
             <div class="section-divider"></div>
 
             <p class="enigme-description" style="text-align: center;">
-                PUT THE LETTERS IN THE CORRECT ORDER TO FIND THE CULPRIT.<br>
-                TO ARREST HIM / HER, YOU USE THE HANDCUFFS.
+                PUT THE LETTERS IN THE CORRECT ORDER TO FIND THE CULPRIT. THE IMAGE WILL GIVE YOU A CLUE ON HIS/HER IDENTITY.
+            </p>
+
+            <p class="enigme-description" style="text-align: center; font-style: italic;">
+                Once you have found the culprit, use the handcuffs to arrest him or her.
             </p>
 
             <div class="letter-scramble" id="scramble-letters"></div>
