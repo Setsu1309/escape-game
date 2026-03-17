@@ -205,7 +205,7 @@ function showQRPopup(type, num) {
         if (scanned.length >= TOTAL_MEMES) {
             popup.innerHTML = `
                 <div style="max-width: 400px; width: 100%; text-align: center;">
-                    <img src="final.png" alt="Final clue" style="max-width: 100%; max-height: 60vh; border: 2px solid var(--success-light); margin-bottom: 1rem;">
+                    <video src="final.mp4" controls autoplay playsinline style="max-width: 100%; max-height: 60vh; border: 2px solid var(--success-light); margin-bottom: 1rem;"></video>
                     <p style="font-family: 'Bebas Neue', sans-serif; color: var(--success-light); font-size: 1.5rem; letter-spacing: 3px; margin-bottom: 0.5rem;">
                         🎯 YOU FOUND THE REAL CLUE!
                     </p>
