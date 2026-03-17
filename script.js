@@ -214,7 +214,7 @@ function showQRPopup(type, num) {
                         </p>
                     </div>
                     <div style="position: relative; width: 100%; padding-bottom: 56.25%; margin-bottom: 1rem;">
-                        <iframe src="https://www.youtube.com/embed/2aZnuRasLUk?modestbranding=1&rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 2px solid var(--success-light);"></iframe>
+                        <iframe src="https://www.youtube.com/embed/MJgDYytO2pU?modestbranding=1&rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 2px solid var(--success-light);"></iframe>
                     </div>
                     <p style="font-family: 'Bebas Neue', sans-serif; color: var(--success-light); font-size: 1.5rem; letter-spacing: 3px; margin-bottom: 0.5rem;">
                         🎯 YOU FOUND THE REAL CLUE!
