@@ -205,7 +205,15 @@ function showQRPopup(type, num) {
         if (scanned.length >= TOTAL_MEMES) {
             popup.innerHTML = `
                 <div style="max-width: 400px; width: 100%; text-align: center;">
-                    <video src="final.mp4" controls autoplay playsinline style="max-width: 100%; max-height: 60vh; border: 2px solid var(--success-light); margin-bottom: 1rem;"></video>
+                    <div style="background: rgba(139, 0, 0, 0.3); border: 2px solid var(--danger-light); padding: 1rem; margin-bottom: 1rem;">
+                        <p style="font-family: 'Bebas Neue', sans-serif; color: var(--danger-light); font-size: 1.2rem; letter-spacing: 3px;">
+                            ⚠️ EPILEPSY WARNING ⚠️
+                        </p>
+                        <p style="font-family: 'Courier Prime', monospace; color: var(--text); font-size: 0.85rem; margin-top: 0.5rem;">
+                            This video contains flashing lights and rapid visual effects that may trigger seizures in people with photosensitive epilepsy. Viewer discretion is advised.
+                        </p>
+                    </div>
+                    <video src="final.mp4" controls playsinline style="max-width: 100%; max-height: 60vh; border: 2px solid var(--success-light); margin-bottom: 1rem;"></video>
                     <p style="font-family: 'Bebas Neue', sans-serif; color: var(--success-light); font-size: 1.5rem; letter-spacing: 3px; margin-bottom: 0.5rem;">
                         🎯 YOU FOUND THE REAL CLUE!
                     </p>
