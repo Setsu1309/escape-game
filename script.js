@@ -206,16 +206,9 @@ function showQRPopup(type, num) {
             popup.innerHTML = `
                 <div style="max-width: 400px; width: 100%; text-align: center;">
                     <div style="background: rgba(139, 0, 0, 0.3); border: 2px solid var(--danger-light); padding: 1rem; margin-bottom: 1rem;">
-                        <p style="font-family: 'Bebas Neue', sans-serif; color: var(--danger-light); font-size: 1.2rem; letter-spacing: 3px;">
-                            ⚠️ EPILEPSY WARNING ⚠️
-                        </p>
-                        <p style="font-family: 'Courier Prime', monospace; color: var(--text); font-size: 0.85rem; margin-top: 0.5rem;">
-                            This video contains flashing lights and rapid visual effects that may trigger seizures in people with photosensitive epilepsy. Viewer discretion is advised.
-                        </p>
+                        <img src="finalimage.png" alt="Final clue" style="max-width: 100%; max-height: 60vh; border: 2px solid var(--success-light); margin-bottom: 1rem;">
                     </div>
                     <div style="position: relative; width: 100%; padding-bottom: 56.25%; margin-bottom: 1rem;">
-                        <iframe src="https://www.youtube.com/embed/MJgDYytO2pU?modestbranding=1&rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 2px solid var(--success-light);"></iframe>
-                    </div>
                     <p style="font-family: 'Bebas Neue', sans-serif; color: var(--success-light); font-size: 1.5rem; letter-spacing: 3px; margin-bottom: 0.5rem;">
                         🎯 YOU FOUND THE REAL CLUE!
                     </p>
