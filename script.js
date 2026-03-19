@@ -208,8 +208,6 @@ function showQRPopup(type, num) {
                     <div style="background: rgba(139, 0, 0, 0.3); border: 2px solid var(--danger-light); padding: 1rem; margin-bottom: 1rem;">
                         <img src="finalimage.png" alt="Final clue" style="max-width: 100%; max-height: 60vh; border: 2px solid var(--success-light); margin-bottom: 1rem;">
                     </div>
-                    <div style="position: relative; width: 100%; padding-bottom: 56.25%; margin-bottom: 1rem;">
-                    <p style="font-family: 'Bebas Neue', sans-serif; color: var(--success-light); font-size: 1.5rem; letter-spacing: 3px; margin-bottom: 0.5rem;">
                         🎯 YOU FOUND THE REAL CLUE!
                     </p>
                     <p style="font-family: 'Special Elite', cursive; color: var(--text); font-size: 1rem; margin-bottom: 1.5rem;">
